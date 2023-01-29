@@ -27,6 +27,7 @@ objects in the database are like this:
   "productUrl": "https://www.banimode.com/BM-67778/%D8%B4%D9%84%D9%88%D8%A7%D8%B1-%D8%AC%DB%8C%D9%86-%D9%85%D8%B1%D8%AF%D8%A7%D9%86%D9%87-%D9%87%D9%88%DA%AF%D8%B1%D9%88-hugero-%DA%A9%D8%AF-980.html#/%D8%B1%D9%86%DA%AF-%D8%B7%D9%88%D8%B3%DB%8C",
   "productDiscount": "٪10",
   "productOldPrice": "992,000 تومان"
+  "isDiscount": true
 }
 """
 
@@ -34,6 +35,7 @@ objects in the database are like this:
 # api example: http://localhost:5000/products?min_price=100000&max_price=200000&brand_name=Hugero&have_discount=true&product_name=شلوار
 # or http://localhost:5000/products?brand_name=Hugero&have_discount=true
 # or http://localhost:5000/products (to get all products)
+# can sort the products by price (asc or desc)
 @app.route('/products', methods=['GET'])
 def get_products_filter():
     # get the query parameters
@@ -44,14 +46,30 @@ def get_products_filter():
     min_price = request.args.get('min_price' , default = 0 , type = int)
     max_price = request.args.get('max_price' , default = 1000000000 , type = int)
     brand_name = request.args.get('brand_name' , default = ".*" , type = str)
-    have_discount = request.args.get('have_discount' , default = False , type = bool)
+    have_discount = request.args.get('have_discount' , default = 0 , type = int)
     product_name = request.args.get('product_name' , default = ".*" , type = str)
+    sort_flag = request.args.get('sort' , default = 0 , type = int)
 
     # get the products that match with the filters
-    products = mycol.find({
-        # if min_price is not 0 then the price of the product must be greater than or equal to min_price
-        
-    })
+    # make search_query json object
+    search_query = {
+        'price': {'$gte': min_price, '$lte': max_price},
+    }
+    if have_discount:
+        search_query['isDiscount'] = True
+    elif have_discount == 0:
+        search_query['isDiscount'] = False
+
+    # search in names that match with the product_name
+    search_query['productName'] = {'$regex': product_name}
+    # search in brands that match with the brand_name
+    search_query['productBrand'] = {'$regex': brand_name}
+
+    if ( sort_flag == 0 ):
+        products = mycol.find(search_query)
+    elif ( sort_flag == 1 or sort_flag == -1 ):
+        products = mycol.find(search_query).sort('price', True if sort_flag == 1 else False)
+
     output = []
     for product in products:
         output.append({
@@ -62,6 +80,7 @@ def get_products_filter():
             'imageShow': product['imageShow'],
             'productUrl': product['productUrl'],
             'productDiscount': product['productDiscount'],
+            'isDiscount': product['isDiscount'],
             'productOldPrice': product['productOldPrice']
         })
     return jsonify({'result': output})
