@@ -38,7 +38,7 @@ def get_products(driver):
         try:
             object['productDiscount'] = item.find_element(By.XPATH,"div[@class='product-card']//span[@class='product-card-discount']").text
         except:
-            object['productDiscount'] = ""
+            object['productDiscount'] = 0
         # object['productOldPrice'] is in "div[@class='product-card']//span[@class='product-card-lastprice']").text if it exists
         try:
             object['productOldPrice'] = item.find_element(By.XPATH,"div[@class='product-card']//span[@class='product-card-lastprice']").text
