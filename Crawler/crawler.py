@@ -6,6 +6,9 @@ from selenium.webdriver.common.by import By
 import time
 import random
 import pymongo
+# use multithreading to speed up the process
+import threading
+import concurrent.futures
 
 # get the products from the html
 def get_products(driver):
@@ -72,12 +75,12 @@ def store_products(mycol , products):
         else:
             mycol.insert_one(item)
 
-
-
-
-last_page_number = 9999
-is_last_page_number_found = False
-i = 1
+def make_driver(url):
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
+    return driver
 
 
 # mongodb database name is "ClothingSearchEngineDB" and collection name is "ClothingSearchEngineDBCollection"
@@ -87,39 +90,45 @@ mydb = myclient["ClothingSearchEngineDB"]
 mycol = mydb["ClothingSearchEngineDBCollection"]
 
 
-while i < last_page_number:
-    # get the html
-    if i == 1:
-        url = "https://www.banimode.com/new-products?sort|default=asc"
-    elif i > 1:
-        url = "https://www.banimode.com/new-products?sort|default=asc&page=" + str(i)
-
-    # run selenium without opening the browser
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    driver = webdriver.Chrome(options=options)
-    driver.get(url)
-    
-    # if last page number is not found, find it
-    if not is_last_page_number_found:
-        last_page_number = find_last_page_number(driver)
-        is_last_page_number_found = True
+last_page_number = 9999
 
 
-    # add products to mongodb database
-    store_products(mycol , get_products(driver))
+url = "https://www.banimode.com/new-products?sort|default=asc"
+driver = make_driver(url)
 
+last_page_number = find_last_page_number(driver)
+urls = ["https://www.banimode.com/new-products?sort|default=asc" + str(i) for i in range(1,last_page_number+1)]
+
+# add products to mongodb database
+store_products(mycol , get_products(driver))
+
+# print the page number
+print("Page 1 is done")
+
+# speed up the process by using multithreading
+
+# make multi drivers for multithreading
+
+
+# Run store_products five by five for urls
+for i in range(0, len(urls), 5):
+    # make threads
+    threads = []
+    for j in range(i, i+5):
+        t = threading.Thread(target=store_products, args=(mycol, get_products(make_driver(urls[j]))))
+        threads.append(t)
+        t.start()
+    for t in threads:
+        t.join()
     # print the page number
-    print("Page " + str(i) + " is done")
+    print("Page " + str(i+1) + " is done")
 
-    # wait random time between 1 and 6 seconds
-    time.sleep(random.randint(1, 6))
-
-    i += 1
-
-    # for testing stop after 5 pages
-    if i > 5:
+    # for testing purposes stop after i > 20
+    if i > 20:
         break
+
+
+
 
 # close the driver
 driver.close()
