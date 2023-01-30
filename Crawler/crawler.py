@@ -126,7 +126,7 @@ def make_driver(url):
     return driver
 
 
-# mongodb database name is "ClothingSearchEngineDB" and collection name is "ClothingSearchEngineDBCollection"
+# mongoDB database name is "ClothingSearchEngineDB" and collection name is "ClothingSearchEngineDBCollection"
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 mydb = myclient["ClothingSearchEngineDB"]
