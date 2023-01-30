@@ -48,7 +48,7 @@ def get_products_filter():
     brand_name = request.args.get('brand_name' , default = ".*" , type = str)
     have_discount = request.args.get('have_discount' , default = 0 , type = int)
     product_name = request.args.get('product_name' , default = ".*" , type = str)
-    sort_flag = request.args.get('sort' , default = 0 , type = int)
+    sort_flag = request.args.get('sort_flag' , default = "none" , type = str)
 
     # get the products that match with the filters
     # make search_query json object
@@ -65,14 +65,14 @@ def get_products_filter():
     # search in brands that match with the brand_name
     search_query['productBrand'] = {'$regex': brand_name}
 
-    if ( sort_flag == 0 ):
+    if ( sort_flag == "none" ):
         products = mycol.find(search_query)
     # if sort_flag == 1 then sort by price in ascending order
-    elif ( sort_flag == 1 ):
-        products = mycol.sort('price' , 1).find(search_query)
+    elif ( sort_flag == "asc" ):
+        products = mycol.find(search_query).sort([('price', 1)])
     # if sort_flag == 2 then sort by price in descending order
-    elif ( sort_flag == 2 ):
-        products = mycol.sort('price' , -1).find(search_query)
+    elif ( sort_flag == "desc" ):
+        products = mycol.find(search_query).sort([('price', -1)])
     
     # make the output json object
     output = []
@@ -88,7 +88,9 @@ def get_products_filter():
             'isDiscount': product['isDiscount'],
             'productOldPrice': product['productOldPrice']
         })
-    return jsonify({'result': output})
+    return jsonify({
+        'result': output
+        })
 
 
 # start the app
