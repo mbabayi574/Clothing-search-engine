@@ -161,7 +161,7 @@ in each thread, we pass a page number to the page_operation function
 from multiprocessing import Pool
 
 with Pool(6) as p:
-    p.map(page_operation, range(2, 20))
+    p.map(page_operation, range(2, last_page_number + 1))
 
 # Close The Connection
 myclient.close()
