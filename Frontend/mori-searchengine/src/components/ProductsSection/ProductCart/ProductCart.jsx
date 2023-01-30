@@ -12,7 +12,7 @@ export default function ProductCart({
   delPrice = 0,
 }) {
   return (
-    <div className="product-cart col-md-6 col-lg-3 p-2 p-lg-3 my-3 mx-auto">
+    <div className="product-cart col-xl-3 col-md-4 col-6 p-2 p-lg-3 my-3 mx-auto">
       <a href="#" className="cart-img">
         <img src={img} className="mx-auto d-block" alt="product cart" />
         <BadgeSticky percent={percent} />
