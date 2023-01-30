@@ -67,9 +67,14 @@ def get_products_filter():
 
     if ( sort_flag == 0 ):
         products = mycol.find(search_query)
-    elif ( sort_flag == 1 or sort_flag == -1 ):
-        products = mycol.find(search_query).sort('price', True if sort_flag == 1 else False)
-
+    # if sort_flag == 1 then sort by price in ascending order
+    elif ( sort_flag == 1 ):
+        products = mycol.sort('price' , 1).find(search_query)
+    # if sort_flag == 2 then sort by price in descending order
+    elif ( sort_flag == 2 ):
+        products = mycol.sort('price' , -1).find(search_query)
+    
+    # make the output json object
     output = []
     for product in products:
         output.append({
