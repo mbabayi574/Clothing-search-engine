@@ -1,0 +1,111 @@
+.offer-product-img {
+  min-height: 512px;
+  display: flex;
+  flex-direction: row;
+  grid-column-gap: 32px;
+}
+.offer-product-img .box-1 {
+  background-color: #138173;
+  width: calc(50% - 16px);
+  height: 100%;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.offer-product-img .box-1 i {
+  color: #1EA182;
+  font-size: 17em;
+  position: absolute;
+  bottom: -88px;
+}
+.offer-product-img .box-2 {
+  background-color: #eee;
+  height: 100%;
+  width: 32px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+.offer-product-img img {
+  position: absolute;
+  top: 0;
+}
+
+.image-right img {
+  left: 32px;
+}
+.image-right .box-1 i {
+  right: -96px;
+}
+
+.image-left {
+  direction: ltr;
+}
+.image-left img {
+  left: 120px;
+}
+.image-left .box-1 i {
+  left: -96px;
+}
+
+@media screen and (max-width: 992px) {
+  .offer-product-img {
+    flex-direction: column;
+    min-height: unset !important;
+  }
+  .offer-product-img .box-1 {
+    height: 256px;
+    width: 100%;
+  }
+  .offer-product-img .box-2 {
+    height: 32px;
+    width: 100%;
+    margin-top: 32px;
+  }
+  .offer-product-img img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    max-height: calc(100% + 48px);
+  }
+}
+@media screen and (max-width: 768px) {
+  .offer-product .end-badge {
+    padding: 12px 8px;
+    font-size: 20px;
+  }
+  .offer-product-img .box-1 {
+    height: 186px;
+  }
+  .offer-product-img .box-1 i {
+    font-size: 10em;
+  }
+  .image-left .box-1 i {
+    transform: translate(55px, -50px);
+    -webkit-transform: translate(55px, -50px);
+    -moz-transform: translate(55px, -50px);
+    -ms-transform: translate(55px, -50px);
+    -o-transform: translate(55px, -50px);
+  }
+  .image-right .box-1 i {
+    transform: translate(-55px, -50px);
+    -webkit-transform: translate(-55px, -50px);
+    -moz-transform: translate(-55px, -50px);
+    -ms-transform: translate(-55px, -50px);
+    -o-transform: translate(-55px, -50px);
+  }
+}
+
+/*# sourceMappingURL=OfferImages.css.map */

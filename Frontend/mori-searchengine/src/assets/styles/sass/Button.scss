@@ -1,0 +1,69 @@
+@import './variables';
+@import './mixins';
+
+
+.button{
+    border: 2px solid $second;
+    outline: none;
+    @include borderRadius(8px);
+    @include transition(.3s);
+    padding: 10px  15px 10px 7px;
+    background-color: $second;
+    color: $white;
+    display: flex;
+    align-items: center;
+    max-width:fit-content;
+
+    i{
+        font-size: 1.8em;
+        margin-right: 11px;
+    }
+    &:hover{
+        background-color: transparent;
+        color: $second;
+    }
+}
+.transparent-button{
+    outline: none;
+    border: none;
+    @include transition(.3s);
+    background-color: transparent;
+    color: $second;
+    display: flex;
+    align-items: center;
+
+    i{
+        font-size: 1.8em;
+        margin-right: 8px;
+        margin-top: 5px;
+    }
+    &:hover{
+        color: $black;
+    }
+}
+.add-cart-button{
+    background-color: $gray;
+    border: 0;
+    font-size: 28px;
+    color: $gray-dark;
+    width: 48px;
+    height: 48px;
+    @include borderRadius(8px);
+    @include transition(.3s);
+
+
+    &:hover{
+        background-color: $second;
+        color: $white;
+    }
+}
+
+
+
+@media screen and (max-width:768px){
+    .add-cart-button{
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+    }
+}

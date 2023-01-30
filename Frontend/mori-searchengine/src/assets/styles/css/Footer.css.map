@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["../sass/Footer.scss","../sass/_variables.scss","../sass/_mixins.scss"],"names":[],"mappings":"AAKI;EACI,kBCHC;ECFL,eFM0B;EEL1B,uBFK0B;EEJ1B,oBFI0B;EEH1B,mBFG0B;EEF1B,kBFE0B;EACtB;EACA,OCDA;EDEA;EACA;;AAEJ;EACI;;;AAOR;EACI;IACI;IACA;IACA;;EAEJ;IACI","file":"Footer.css"}

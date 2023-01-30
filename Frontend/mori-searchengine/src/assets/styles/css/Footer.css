@@ -1,0 +1,28 @@
+footer .footer-option .icon-box {
+  background-color: #138173;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  font-size: 32px;
+  color: #fff;
+  width: 64px;
+  height: 64px;
+}
+footer .footer-option .body {
+  padding-right: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-option .icon-box {
+    font-size: 24px;
+    width: 48px;
+    height: 48px;
+  }
+  .footer-option .body {
+    padding-right: 12px;
+  }
+}
+
+/*# sourceMappingURL=Footer.css.map */
