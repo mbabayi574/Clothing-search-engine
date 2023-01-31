@@ -1,0 +1,6 @@
+flask
+flask_cors
+flask_redis
+flask_restful
+json
+flask_cors
