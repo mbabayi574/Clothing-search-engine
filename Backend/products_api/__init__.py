@@ -15,9 +15,9 @@ app.config['REDIS_URL'] = "redis://localhost:6379/0"
 # Initialize Redis
 redis_store = FlaskRedis(app)
 
-
-
-
 from .products import Products
 
 api.add_resource(Products, '/products') 
+
+from .products import HelloWorld
+api.add_resource(HelloWorld, '/')

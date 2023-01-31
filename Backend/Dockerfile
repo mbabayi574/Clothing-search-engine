@@ -1,11 +1,19 @@
-FROM python:3.10.7-alpine
+FROM python:slim-buster
 
 WORKDIR /app
 
 ADD . /app
 
-RUN pip3 install -r requirements.txt
+RUN pip install --upgrade pip
+RUN python3 -m pip install flask
+RUN python3 -m pip install pymongo
+RUN python3 -m pip install flask_cors
+RUN python3 -m pip install flask_redis
+RUN python3 -m pip install flask_restful
+RUN python3 -m pip install gunicorn
+RUN python3 -m pip install selenium
+RUN python3 -m pip install bs4
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--config", "conf/gunicorn_config.py", "products_api:app"]
+CMD ["gunicorn", "--config", "./conf/gunicorn_conf.py", "products_api:app"]
