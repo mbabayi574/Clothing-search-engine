@@ -1,0 +1,75 @@
+.offer-code-cart .offer-body {
+  transform: scale(0.98);
+  -webkit-transform: scale(0.98);
+  -moz-transform: scale(0.98);
+  -ms-transform: scale(0.98);
+  -o-transform: scale(0.98);
+  position: relative;
+  background-color: #eee;
+  overflow: hidden;
+  padding: 15px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+.offer-code-cart .offer-body:hover {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+}
+.offer-code-cart .offer-body p {
+  color: #9E9E9E;
+  max-width: 98%;
+  line-height: 30px;
+}
+
+.offer-code-cart .coupon-code {
+  box-shadow: inset 0 0 0 2px #9E9E9E;
+  -webkit-box-shadow: inset 0 0 0 2px #9E9E9E;
+  -moz-box-shadow: inset 0 0 0 2px #9E9E9E;
+  -ms-box-shadow: inset 0 0 0 2px #9E9E9E;
+  -o-box-shadow: inset 0 0 0 2px #9E9E9E;
+  padding: 22px 8px 14px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.coupon-code::after, .coupon-code::before {
+  content: "";
+  width: 17px;
+  height: 17px;
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border: 2px solid #9E9E9E;
+  top: calc(50% - 8px);
+  background-color: #eee;
+}
+
+.coupon-code::after {
+  right: -7px;
+}
+
+.coupon-code::before {
+  left: -7px;
+}
+
+/*# sourceMappingURL=OfferCodeCart.css.map */

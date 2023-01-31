@@ -1,0 +1,41 @@
+@import './variables';
+@import './mixins';
+
+
+.product-cart{
+    .cart-img{
+        display: block;
+        background-color: $gray-light;
+        padding: 25px 5px;
+        @include borderRadius(8px);
+        position: relative;
+        overflow: hidden;
+        @include transition(.3s);
+        @include transform(scale(.97));
+
+        &:hover{
+            @include transform(scale(1));
+
+        }
+    }
+    .cart-img img{
+        max-width: 95%;
+    }
+    .cart-img badge{
+        position: absolute;
+        top: 15px;
+        left: -12px;
+        padding-left: 25px;
+    }
+    .cart-body .cart-title{
+        font-size: .9em;
+        color: $black;
+        @include transition(.3s);
+        margin: 20px 0;
+        display: inline-block;
+
+        &:hover{
+            color: $second;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+@import './variables';
+@import './mixins';
+
+
+
+.plan-cart{
+
+    .plan-body{
+        @include transform(scale(.98));
+        position: relative;
+        background-color: $gray;
+        overflow: hidden;
+        padding: 15px;
+        @include borderRadius(8px);
+        @include transition(.3s);
+
+        &:hover{
+            @include transform(scale(1));
+        }
+    }
+    .plan-body p{
+        color: $gray-dark;
+        max-width: 98%;
+        line-height: 30px;
+    }
+}

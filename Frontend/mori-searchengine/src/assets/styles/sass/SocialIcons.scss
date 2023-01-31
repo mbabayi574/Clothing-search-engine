@@ -1,0 +1,37 @@
+@import './variables';
+@import './mixins';
+
+
+.social-icons{
+    span{
+        display: block;
+        margin-top: 30px;
+        color: $gray-dark;
+    }
+    .icon{
+        width: 48px;
+        height: 48px;
+        background-color: $gray;
+        color: $gray-dark;
+        @include borderRadius(8px);
+        @include transition(.3s);
+        margin: 15px 5px;
+        font-size: 28px;
+
+        img{
+            width: 65%;
+        }
+        &:hover{
+            background-color: $second;
+            color: $white;
+        }
+    }
+}
+
+@media screen and (max-width:768px){
+    .social-icons .icon{
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+    }
+}

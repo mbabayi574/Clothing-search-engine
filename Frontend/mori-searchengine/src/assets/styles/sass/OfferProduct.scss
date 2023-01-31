@@ -1,0 +1,35 @@
+@import './variables';
+@import './mixins';
+
+
+.offer-product{
+    .end-badge{
+        display: inline-block;
+        color: $second;
+        background-color: $gray;
+        @include borderRadius(8px);
+        font-weight: 510;
+        font-size: 24px;
+        padding: 16px;
+    }
+}
+
+.offer-product-info{
+    .price{
+        display: flex;
+        flex-direction: column;
+    }
+    
+}
+
+
+
+
+@media screen and (max-width:768px){
+    .offer-product{
+        .end-badge{
+            padding: 12px 8px;
+            font-size: 20px;
+        }
+    }
+}

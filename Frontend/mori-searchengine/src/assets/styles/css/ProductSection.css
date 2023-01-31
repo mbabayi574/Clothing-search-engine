@@ -1,0 +1,19 @@
+/* filter_section is a card with some filters */
+.filter_section {
+  background-color: rgb(218, 218, 218);
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  height: 400px;
+}
+
+.important-product-cart {
+  top: -42px;
+}
+
+/*# sourceMappingURL=ProductSection.css.map */

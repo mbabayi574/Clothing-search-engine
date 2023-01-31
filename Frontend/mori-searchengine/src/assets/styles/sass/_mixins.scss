@@ -1,0 +1,31 @@
+@mixin borderRadius($value) {
+    border-radius: $value;
+    -webkit-border-radius: $value;
+    -moz-border-radius: $value;
+    -ms-border-radius: $value;
+    -o-border-radius: $value;
+}
+@mixin transition($value) {
+    transition: $value;
+    -webkit-transition: $value;
+    -moz-transition: $value;
+    -ms-transition: $value;
+    -o-transition: $value;
+}
+@mixin mediaMaxWidth($width){
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}
+@mixin mediaMinWidth($width){
+    @media screen and (min-width: $width) {
+        @content;
+    }
+}
+@mixin transform($value) {
+    transform: $value;
+    -webkit-transform: $value;
+    -moz-transform: $value;
+    -ms-transform: $value;
+    -o-transform: $value;
+}
