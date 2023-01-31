@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
-#  implement Redis cache for flask Api
 from flask_redis import FlaskRedis
 
 
