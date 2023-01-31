@@ -7,6 +7,9 @@ from selenium.common.exceptions import TimeoutException
 import time, random
 
 # Define A Function For Making Driver
+
+failed_urls = []
+
 def make_driver(url):
     options = webdriver.ChromeOptions()
     # Make it headless
@@ -16,18 +19,15 @@ def make_driver(url):
 
     driver = webdriver.Chrome(options=options)
     try:
-        # Wait 10 seconds for the page to load
-        driver.set_page_load_timeout(10)
+        # Wait 15 seconds for the page to load
+        driver.set_page_load_timeout(15)
         # wait until the page load completely
         driver.get(url)
     # if TimeoutException occurs, try again
     except TimeoutException:
         driver.set_page_load_timeout(20)
         driver.get(url)
-    # if exception occurs again, return None
-    except:
-        print("\nfaild to load" + url + " page\n")
-        return None
+
 
     # get the html of the page
     html = driver.page_source
@@ -125,11 +125,18 @@ def find_last_page_number(html):
 
 
 # find the last page number and save it in last_page_number and extract the products from the first page
-html = make_driver('https://www.banimode.com/new-products?sort|default=asc&page=1')
-last_page_number = find_last_page_number(html)
-products = parse_html(html)
-save_products(mycol, products)
-print("Page 1 Done And Products Saved")
+while True:
+    try:
+        html = make_driver('https://www.banimode.com/new-products?sort|default=asc&page=1')
+        last_page_number = find_last_page_number(html)
+        products = parse_html(html)
+        save_products(mycol, products)
+        print("Page 1 Done And Products Saved")
+        break
+    except:
+        print("Error Occured In Page 1")
+        time.sleep(random.randint(0,6))
+        continue
 
 """ Import Parallel Python Library for run make_driver and parse_html and save_products in three different threads
 
@@ -145,26 +152,50 @@ print("Page 1 Done And Products Saved")
 # Start The Crawler ( It will run until the last page is reached )
 
 def page_operation(page_number):
-    # Make Driver
-    html = make_driver('https://www.banimode.com/new-products?sort|default=asc&page=' + str(page_number))
-    # Parse Html
-    products = parse_html(html)
-    # Save Products
-    save_products(mycol, products)
-    print(f"Page {page_number} Done And Products Saved")
+    try:
+        # Make Driver
+        html = make_driver('https://www.banimode.com/new-products?sort|default=asc&page=' + str(page_number))
+        # Parse Html
+        products = parse_html(html)
+        # Save Products
+        save_products(mycol, products)
+        print(f"Page {page_number} Done And Products Saved")
+
+        if page_number in failed_urls:
+            failed_urls.remove(page_number)
+
+    except:
+        failed_urls.append(page_number)
+        print("\nfaild to operate" + str(page_number) + " page\n")
 
 """
-make six threads for run page_operation function
+make eight threads for run page_operation function
 
 in each thread, we pass a page number to the page_operation function
 """
 from multiprocessing import Pool
 
-with Pool(6) as p:
+with Pool(8) as p:
     p.map(page_operation, range(2, last_page_number + 1))
+
+# retry for failed_urls while it is not empty
+while len(failed_urls) > 0:
+    with Pool(4) as p:
+        p.map(page_operation, failed_urls)
 
 # Close The Connection
 myclient.close()
+
+
+# Unit Test For The Crawler
+import unittest
+
+
+# Todo : Maka A Logger For The Crawler
+# Todo : Make A Function For Saving The Failed Urls In A File
+# Todo : try just three times for each page and if it fails, save it in a file
+# Todo : Clean The Code and Make It More Readable
+# Todo : Write Tests For The Crawler
 
 
 
