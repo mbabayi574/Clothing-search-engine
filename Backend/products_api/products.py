@@ -2,14 +2,14 @@ from flask_restful import Resource, reqparse
 from pymongo import MongoClient
 from bson import json_util
 import json
-
+from flask_cors import  cross_origin
 
 # connect to the database
 myclient = MongoClient("mongodb://localhost:27017/")
 mydb = myclient["ClothingSearchEngineDB"]
 mycol = mydb["ClothingSearchEngineDBCollection"]
 
-
+# POST Request
 products_data = reqparse.RequestParser()
 products_data.add_argument('page', type=int, required=True, help='Page number is required')
 products_data.add_argument('limit', type=int, required=True, help='Limit is required')
@@ -26,7 +26,7 @@ class Products(Resource):
     Methods related to the Products endpoint are written 
     here.
 
-    GET:
+    POST Method:
        Input: {'page':Int, 'limit':Int , 'min_price':Int, 'max_price':Int,
        'product_name':String, 'brand_name':String, 'have_discount':Int,
         'sort_flag':String} }
@@ -34,7 +34,8 @@ class Products(Resource):
        'showing':Int, products:List}
     '''
 
-    def get(self):
+    @cross_origin(supports_credentials=True)
+    def post(self):
         data = products_data.parse_args()
      
         page = data['page']

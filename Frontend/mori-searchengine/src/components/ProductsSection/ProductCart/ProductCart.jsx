@@ -5,26 +5,40 @@ import BadgeSticky from "./BadgeSticky";
 import AddToCartButton from "../../Button/AddToCartButton";
 
 export default function ProductCart({
-  title = "نام  محصول وارد نشده است",
-  img = "./not-img.png",
-  percent = 0,
-  price = 0,
-  delPrice = 0,
+  productName,
+  imageShow,
+  productDiscount = 0,
+  price,
+  productOldPrice,
+  productUrl,
+  productBrand,
 }) {
   return (
     <div className="product-cart col-xl-3 col-md-4 col-6 p-2 p-lg-3 my-3 mx-auto">
-      <a href="#" className="cart-img">
-        <img src={img} className="mx-auto d-block" alt="product cart" />
-        <BadgeSticky percent={percent} />
+      <a href={"https://www.banimode.com" + productUrl} className="cart-img">
+        <img src={imageShow} className="mx-auto d-block" alt="product cart" />
+        {productDiscount !== 0 && <BadgeSticky percent={productDiscount} />}
       </a>
+
       <div className="cart-body">
-        <a className="cart-title" href="#">
-          {title}
+        <a
+          className="cart-title"
+          href={"https://www.banimode.com" + productUrl}
+        >
+          {productName}
+          <br />
+          {"(" + productBrand + ")"}
         </a>
         <div className="d-flex justify-content-between align-items-end">
-          <AddToCartButton />
+          <a
+            href={"https://www.banimode.com" + productUrl}
+            className="add-cart-button d-flex align-items-center justify-content-center"
+          >
+            <AddToCartButton url={productUrl} />
+          </a>
+
           <span className="d-inline-flex flex-column text-left">
-            <DeletedPrice deletedPrice={delPrice} />
+            <DeletedPrice deletedPrice={productOldPrice} />
             <Price price={price} />
           </span>
         </div>
